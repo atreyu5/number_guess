@@ -23,11 +23,12 @@ MAIN_MENU()
     RESULT_INSERT_USER=$($PSQL "INSERT INTO users (name) VALUES ('$USER_NAME')")
   fi
 
-  read THE_NUMBER <<< "$RANDOM"
+  THE_NUMBER=$RANDOM
 
   echo "Guess the secret number between 1 and 1000:"
   
   read USER_NUMBER
+  COUNTER_GUESSES=1 
 
   while [ $USER_NUMBER != $THE_NUMBER ]
     do
@@ -37,13 +38,17 @@ MAIN_MENU()
         else
           if [[ $USER_NUMBER -lt $THE_NUMBER ]]
             then
-              echo "It's lower than that, guess again: ($THE_NUMBER)"
-            else
               echo "It's higher than that, guess again: ($THE_NUMBER)"
+            else
+              echo "It's lower than that, guess again: ($THE_NUMBER)"
           fi
       fi
       read USER_NUMBER
+      ((COUNTER_GUESSES++))
+      echo $COUNTER_GUESSES
     done
+
+    echo "You guessed it in $COUNTER_GUESSES tries. The secret number was $THE_NUMBER. Nice job!"
 
 }
 
