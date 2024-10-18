@@ -27,7 +27,7 @@ MAIN_MENU()
     USER_ID=${RESULT_INSERT_USER[0]}
   fi
 
-  THE_NUMBER=$RANDOM
+  THE_NUMBER=$(( ( RANDOM % 1000 )  + 1 ))
 
   echo "Guess the secret number between 1 and 1000:"
   
@@ -49,7 +49,6 @@ MAIN_MENU()
       fi
       read USER_NUMBER
       ((COUNTER_GUESSES++))
-      echo $COUNTER_GUESSES
     done
 
     echo "You guessed it in $COUNTER_GUESSES tries. The secret number was $THE_NUMBER. Nice job!"
